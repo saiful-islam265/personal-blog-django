@@ -22,14 +22,14 @@
         </div>
         <div class="rightcolumn">
             <div class="card">
-                <h2>Blogger Website</h2>
-                <p>This is my blogger website.</p>
+                <h2>Website Stats:</h2>
                 I have published {% total_articles %} articles till now.
             </div>
 
             <div class="card">
                 <h3>Latest Article</h3>
                 {% block latestArticle %}
+                {% show_latest_articles 3 %}
                 {% endblock %}
             </div>
 
