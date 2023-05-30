@@ -2,11 +2,17 @@ from django.shortcuts import render, get_object_or_404
 from .models import Article
 from django.http import HttpResponse, Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from taggit.models import Tag
 
 
 # Create your views here.
-def list_of_articles(request):
+def list_of_articles(request, tag_slug = None):
     articles = Article.publishedArticles.all()
+
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        articles = articles.filter(tags__in=[tag])
 
     paginator = Paginator(articles, 3)
     page_number = request.GET.get('page', 1)
@@ -17,7 +23,7 @@ def list_of_articles(request):
     except PageNotAnInteger:
         articles = paginator.page(1)
 
-    return render(request, 'blog/list.html', {'articles': articles})
+    return render(request, 'blog/list.html', {'articles': articles, 'tag': tag})
     pass
 
 
