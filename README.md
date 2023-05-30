@@ -1,1 +1,1 @@
-# personal-blog-django
+# This blog is part of and skill assessment
